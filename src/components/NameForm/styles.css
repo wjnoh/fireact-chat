@@ -6,16 +6,6 @@
   border-radius: 10px;
   padding: 20px;
   box-shadow: 15px 15px 35px -20px rgba(0, 0, 0, 0.75);
-  opacity: 1;
-  pointer-events: auto;
-  transition: opacity 0.5s ease-in-out, box-shadow 2s ease-in-out;
-}
-
-.name-form--none {
-  opacity: 0;
-  pointer-events: none;
-  box-shadow: none;
-  transition: opacity 0.5s ease-in-out;
 }
 
 .logo-text {
@@ -49,6 +39,6 @@ img.loading {
 
 @media (max-width: 640px) {
   .name-form {
-    width: calc(100% - 30px);
+    width: calc(100% - 50px);
   }
 }

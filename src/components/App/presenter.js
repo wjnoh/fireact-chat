@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import NameForm from "../NameForm";
 import MessageBox from "../MessageBox";
+import { Route } from "react-router-dom";
 
 import "./styles.css";
 
 export default class presenter extends Component {
   componentDidUpdate = () => {
-    const { isLoaded, isLoggedIn, getMessage } = this.props;
+    const { isLoaded, isLoggedIn, getMessages, currentRoom } = this.props;
     if (isLoggedIn && !isLoaded) {
-      getMessage();
+      getMessages(currentRoom);
     }
   };
 
@@ -22,41 +23,64 @@ export default class presenter extends Component {
       handleLogout,
       handleMessageSubmit,
       handleRoomChange,
-      currentRoom,
       getRoomList,
       roomList
     } = this.props;
 
-    return (
-      <main className="main">
-        <div className="main__container">
-          <NameForm handleLogin={handleLogin} isLoggedIn={isLoggedIn} />
-          <MessageBox
-            messages={messages}
-            isLoaded={isLoaded}
-            handleLogout={handleLogout}
-            currentUser={currentUser}
-            handleMessageSubmit={handleMessageSubmit}
-            handleRoomChange={handleRoomChange}
-            currentRoom={currentRoom}
-            getRoomList={getRoomList}
-            roomList={roomList}
-          />
-          {isLoggedIn ? (
-            isLoaded ? (
-              ""
-            ) : (
-              <img
-                src={require("../../images/Loading.svg")}
-                alt=""
-                className="loading"
-              />
-            )
-          ) : (
-            ""
+    const PublicRoutes = () => {
+      return (
+        <main className="main">
+          <div className="main__container">
+            <Route
+              path="/"
+              render={() => (
+                <NameForm handleLogin={handleLogin} isLoggedIn={isLoggedIn} />
+              )}
+            />
+          </div>
+        </main>
+      );
+    };
+
+    const PrivateRoutes = () => {
+      return (
+        // 기본 경로(/)일 경우 Fireact로 이동하기 때문에 Switch 필요 X
+        <Route
+          path="/:roomName"
+          render={({ match }) => (
+            <main className="main">
+              <div className="main__container">
+                <MessageBox
+                  messages={messages}
+                  isLoaded={isLoaded}
+                  handleLogout={handleLogout}
+                  currentUser={currentUser}
+                  handleMessageSubmit={handleMessageSubmit}
+                  handleRoomChange={handleRoomChange}
+                  getRoomList={getRoomList}
+                  roomList={roomList}
+                  match={match}
+                />
+                {isLoggedIn ? (
+                  isLoaded ? (
+                    ""
+                  ) : (
+                    <img
+                      src={require("../../images/Loading.svg")}
+                      alt=""
+                      className="loading"
+                    />
+                  )
+                ) : (
+                  ""
+                )}
+              </div>
+            </main>
           )}
-        </div>
-      </main>
-    );
+        />
+      );
+    };
+
+    return isLoggedIn ? PrivateRoutes() : PublicRoutes();
   }
 }

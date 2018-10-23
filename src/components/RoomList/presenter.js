@@ -1,18 +1,16 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
 
 import "./styles.css";
 
-export default class presenter extends Component {
+class presenter extends Component {
   render() {
     const {
       isListOn,
-      handleRoomChange,
       roomList,
       handleRoomSelect,
       handleChange,
-      roomName,
-      handleListOff,
-      clearRoomName
+      roomName
     } = this.props;
 
     return (
@@ -21,11 +19,11 @@ export default class presenter extends Component {
           className="room-list__form"
           onSubmit={e => {
             e.preventDefault();
-            handleRoomChange(roomName);
-            handleListOff();
-            clearRoomName();
-            // 한번에 handleRoomChange 함수에 넣어서는 작동이 안된다.
-            // 왜지?? e 때문에 그런 것 같다.
+            handleRoomSelect(roomName);
+
+            // input에 붙은 focus 제거
+            let focus = document.querySelector(":focus");
+            if (focus) focus.blur();
           }}
         >
           <input
@@ -35,9 +33,12 @@ export default class presenter extends Component {
             value={roomName}
             name="roomName"
             onChange={handleChange}
+            required
+            ref={ref => (this.input = ref)}
+            autoComplete="off"
           />
           <button type="submit" className="btn-submit">
-            Entrance
+            Enter
           </button>
         </form>
         <div className="rooms">
@@ -59,3 +60,5 @@ export default class presenter extends Component {
     );
   }
 }
+
+export default withRouter(presenter);

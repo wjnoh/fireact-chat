@@ -1,15 +1,20 @@
 import React, { Component } from "react";
 import fire from "../../shared/Firebase";
+import { withRouter } from "react-router";
 
 import App from "./presenter";
 
-export default class container extends Component {
+class container extends Component {
   state = {
     isLoaded: false,
     isLoggedIn: false,
     currentUser: "",
     messages: "",
-    currentRoom: "Fireact Chat",
+    currentRoom:
+      // 기본 경로로 들어오면 Fireact로 방 설정
+      this.props.location.pathname === "/"
+        ? "Fireact"
+        : this.props.location.pathname,
     roomList: ""
   };
 
@@ -18,6 +23,9 @@ export default class container extends Component {
       currentUser: name,
       isLoggedIn: true
     });
+
+    // 기본 경로로 들어왔을 때 기본 방(Fireact)으로 라우터 변경
+    this.props.history.push(this.state.currentRoom);
   };
 
   handleLogout = () => {
@@ -29,10 +37,10 @@ export default class container extends Component {
     });
   };
 
-  getMessage = () => {
+  getMessages = currentRoom => {
     const messagesRef = fire
       .database()
-      .ref("/rooms/" + this.state.currentRoom + "/messages");
+      .ref("/rooms/" + currentRoom + "/messages");
     messagesRef.on("value", snap => {
       if (snap.val() !== null) {
         this.setState({
@@ -61,10 +69,12 @@ export default class container extends Component {
   };
 
   handleRoomChange = roomName => {
+    this.props.history.push("/" + roomName);
     this.setState({
       currentRoom: roomName,
       isLoaded: false
     });
+    this.getMessages(roomName);
   };
 
   getRoomList = () => {
@@ -87,7 +97,7 @@ export default class container extends Component {
         {...this.props}
         handleLogin={this.handleLogin}
         handleLogout={this.handleLogout}
-        getMessage={this.getMessage}
+        getMessages={this.getMessages}
         handleMessageSubmit={this.handleMessageSubmit}
         handleRoomChange={this.handleRoomChange}
         getRoomList={this.getRoomList}
@@ -95,3 +105,5 @@ export default class container extends Component {
     );
   }
 }
+
+export default withRouter(container);

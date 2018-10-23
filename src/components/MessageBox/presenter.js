@@ -19,19 +19,15 @@ export default class presenter extends Component {
       currentUser,
       handleMessageSubmit,
       handleRoomChange,
-      currentRoom,
       isListOn,
       handleListOn,
       handleListOff,
-      roomList
+      roomList,
+      match
     } = this.props;
 
     return (
-      <section
-        className={
-          isLoaded && currentUser !== "" ? "msg-box" : "msg-box msg-box--none"
-        }
-      >
+      <section className={isLoaded ? "msg-box" : "msg-box msg-box--none"}>
         <div className="msg-box__container">
           <div className="msg-box__top">
             <Ionicon
@@ -41,7 +37,7 @@ export default class presenter extends Component {
               }}
               className="mst-box__btn-back"
             />
-            <span>{currentRoom}</span>
+            <span>{match.params.roomName}</span>
             <Ionicon
               icon={isListOn ? "md-close" : "md-menu"}
               className="mst-box__btn-list"
