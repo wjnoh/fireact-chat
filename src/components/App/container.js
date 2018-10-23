@@ -37,6 +37,11 @@ export default class container extends Component {
           },
           isLoaded: true
         });
+      } else {
+        messagesRef.push({
+          name: "Admin",
+          message: "Welcome!"
+        });
       }
     });
   };

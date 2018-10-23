@@ -20,7 +20,11 @@ export default class presenter extends Component {
     } = this.props;
 
     return (
-      <section className={isLoaded ? "msg-box" : "msg-box msg-box--none"}>
+      <section
+        className={
+          isLoaded && currentUser !== "" ? "msg-box" : "msg-box msg-box--none"
+        }
+      >
         <div className="msg-box__container">
           <div className="msg-box__top">
             <Ionicon
