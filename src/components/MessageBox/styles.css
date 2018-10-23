@@ -14,7 +14,7 @@
   opacity: 0;
   pointer-events: none;
   box-shadow: none;
-  transition: all 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .msg-box__container {
@@ -73,13 +73,17 @@
     border-radius: 0;
     box-shadow: none;
   }
+  .msg-box--none {
+    height: 0;
+  }
   .msg-box__top {
     position: fixed;
     top: 0;
   }
   .msg-box__messages {
-    height: calc(100% - 50px);
-    margin-top: 60px;
+    height: 100%;
+    padding-top: 60px;
+    padding-bottom: 50px;
   }
   .msg-box__bottom {
     position: fixed;
