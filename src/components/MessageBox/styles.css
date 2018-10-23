@@ -1,0 +1,44 @@
+.msg-box {
+  position: absolute;
+  width: 400px;
+  height: 500px;
+  border-radius: 10px;
+  background-color: white;
+  opacity: 1;
+  pointer-events: auto;
+  box-shadow: 15px 15px 35px -20px rgba(0, 0, 0, 0.75);
+  transition: opacity 0.5s ease-in-out, box-shadow 2s ease-in-out;
+}
+
+.msg-box--none {
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: none;
+  transition: all 1s ease-in-out;
+}
+
+.msg-box__container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.msg-box__top {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  height: 80px;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.msg-box__messages {
+  height: calc(100% - 100px);
+}
+
+.msg-box__bottom {
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  border-radius: 0 0 10px 10px;
+  bottom: 0;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+}

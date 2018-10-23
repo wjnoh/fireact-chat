@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NameForm from "../NameForm";
+import MessageBox from "../MessageBox";
 
 import "./styles.css";
 
@@ -23,11 +24,12 @@ export default class presenter extends Component {
 
     return (
       <main className="main">
-        <NameForm handleLogin={handleLogin} isLoggedIn={isLoggedIn} />
         <div className="main__container">
+          <NameForm handleLogin={handleLogin} isLoggedIn={isLoggedIn} />
+          <MessageBox messages={messages} isLoaded={isLoaded} />
           {isLoggedIn ? (
             isLoaded ? (
-              JSON.stringify(messages)
+              ""
             ) : (
               <img
                 src={require("../../images/Loading.svg")}
