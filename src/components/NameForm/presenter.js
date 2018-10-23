@@ -16,13 +16,13 @@ export default class presenter extends Component {
             name="name"
             onChange={handleChange}
             value={name}
-            placeholder="이름을 정해주세요."
+            placeholder="Whats your name?"
             className="input name-form__input"
             autoComplete="off"
             required
           />
           <button type="submit" className="btn-submit">
-            시작하기
+            Entrance
           </button>
         </form>
       </section>

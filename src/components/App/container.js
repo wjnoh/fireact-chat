@@ -18,6 +18,15 @@ export default class container extends Component {
     });
   };
 
+  handleLogout = () => {
+    this.setState({
+      currentUser: "",
+      isLoggedIn: false,
+      isLoaded: false,
+      messages: ""
+    });
+  };
+
   getMessage = () => {
     const messagesRef = fire.database().ref("/messages");
     messagesRef.on("value", snap => {
@@ -38,6 +47,7 @@ export default class container extends Component {
         {...this.state}
         {...this.props}
         handleLogin={this.handleLogin}
+        handleLogout={this.handleLogout}
         getMessage={this.getMessage}
       />
     );

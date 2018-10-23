@@ -19,14 +19,19 @@ export default class presenter extends Component {
       currentUser,
       messages,
       handleLogin,
-      getMessage
+      getMessage,
+      handleLogout
     } = this.props;
 
     return (
       <main className="main">
         <div className="main__container">
           <NameForm handleLogin={handleLogin} isLoggedIn={isLoggedIn} />
-          <MessageBox messages={messages} isLoaded={isLoaded} />
+          <MessageBox
+            messages={messages}
+            isLoaded={isLoaded}
+            handleLogout={handleLogout}
+          />
           {isLoggedIn ? (
             isLoaded ? (
               ""
