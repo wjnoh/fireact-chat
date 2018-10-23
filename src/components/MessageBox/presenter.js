@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Message from "../Message";
 import MessageForm from "../MessageForm";
 import Ionicon from "react-ionicons";
+import RoomList from "../RoomList";
 
 import "./styles.css";
 
@@ -16,7 +17,13 @@ export default class presenter extends Component {
       isLoaded,
       handleLogout,
       currentUser,
-      handleMessageSubmit
+      handleMessageSubmit,
+      handleRoomChange,
+      currentRoom,
+      isListOn,
+      handleListOn,
+      handleListOff,
+      roomList
     } = this.props;
 
     return (
@@ -32,10 +39,23 @@ export default class presenter extends Component {
               onClick={() => {
                 handleLogout();
               }}
+              className="mst-box__btn-back"
             />
-            <span>Fireact Chat</span>
-            <span />
+            <span>{currentRoom}</span>
+            <Ionicon
+              icon={isListOn ? "md-close" : "md-menu"}
+              className="mst-box__btn-list"
+              onClick={() => (isListOn ? handleListOff() : handleListOn())}
+            />
           </div>
+
+          <RoomList
+            isListOn={isListOn}
+            handleRoomChange={handleRoomChange}
+            roomList={roomList}
+            handleListOff={handleListOff}
+          />
+
           <div className="msg-box__messages" ref={ref => (this.msgRef = ref)}>
             {Object.values(messages).map((message, index) => {
               return (

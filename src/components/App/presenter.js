@@ -20,7 +20,11 @@ export default class presenter extends Component {
       messages,
       handleLogin,
       handleLogout,
-      handleMessageSubmit
+      handleMessageSubmit,
+      handleRoomChange,
+      currentRoom,
+      getRoomList,
+      roomList
     } = this.props;
 
     return (
@@ -33,6 +37,10 @@ export default class presenter extends Component {
             handleLogout={handleLogout}
             currentUser={currentUser}
             handleMessageSubmit={handleMessageSubmit}
+            handleRoomChange={handleRoomChange}
+            currentRoom={currentRoom}
+            getRoomList={getRoomList}
+            roomList={roomList}
           />
           {isLoggedIn ? (
             isLoaded ? (

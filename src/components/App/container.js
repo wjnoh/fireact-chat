@@ -8,7 +8,9 @@ export default class container extends Component {
     isLoaded: false,
     isLoggedIn: false,
     currentUser: "",
-    messages: ""
+    messages: "",
+    currentRoom: "Fireact Chat",
+    roomList: ""
   };
 
   handleLogin = name => {
@@ -28,7 +30,9 @@ export default class container extends Component {
   };
 
   getMessage = () => {
-    const messagesRef = fire.database().ref("/messages");
+    const messagesRef = fire
+      .database()
+      .ref("/rooms/" + this.state.currentRoom + "/messages");
     messagesRef.on("value", snap => {
       if (snap.val() !== null) {
         this.setState({
@@ -49,11 +53,31 @@ export default class container extends Component {
   handleMessageSubmit = message => {
     fire
       .database()
-      .ref("/messages")
+      .ref("/rooms/" + this.state.currentRoom + "/messages")
       .push({
         name: this.state.currentUser,
         message: message
       });
+  };
+
+  handleRoomChange = roomName => {
+    this.setState({
+      currentRoom: roomName,
+      isLoaded: false
+    });
+  };
+
+  getRoomList = () => {
+    const roomsRef = fire.database().ref("/rooms");
+    roomsRef.on("value", snap => {
+      if (snap.val() !== null) {
+        this.setState({
+          roomList: {
+            ...Object.keys(snap.val())
+          }
+        });
+      }
+    });
   };
 
   render() {
@@ -65,6 +89,8 @@ export default class container extends Component {
         handleLogout={this.handleLogout}
         getMessage={this.getMessage}
         handleMessageSubmit={this.handleMessageSubmit}
+        handleRoomChange={this.handleRoomChange}
+        getRoomList={this.getRoomList}
       />
     );
   }
