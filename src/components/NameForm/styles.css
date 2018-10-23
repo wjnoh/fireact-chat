@@ -54,3 +54,9 @@
 img.loading {
   width: 100px;
 }
+
+@media (max-width: 640px) {
+  .name-form {
+    width: calc(100% - 30px);
+  }
+}
