@@ -6,6 +6,10 @@ import Ionicon from "react-ionicons";
 import "./styles.css";
 
 export default class presenter extends Component {
+  componentDidUpdate(prevProps, prevState) {
+    this.msgRef.scrollTop = this.msgRef.scrollHeight;
+  }
+
   render() {
     const {
       messages,
@@ -28,7 +32,7 @@ export default class presenter extends Component {
             <span>Fireact Chat</span>
             <span />
           </div>
-          <div className="msg-box__messages">
+          <div className="msg-box__messages" ref={ref => (this.msgRef = ref)}>
             {Object.values(messages).map((message, index) => {
               return (
                 <Message

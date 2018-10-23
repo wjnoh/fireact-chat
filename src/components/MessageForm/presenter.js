@@ -4,6 +4,10 @@ import Ionicon from "react-ionicons";
 import "./styles.css";
 
 export default class presenter extends Component {
+  componentDidUpdate(prevProps, prevState) {
+    this.inputRef.focus();
+  }
+
   render() {
     const { message, handleChange, handleSubmit } = this.props;
 
@@ -17,6 +21,8 @@ export default class presenter extends Component {
           onChange={handleChange}
           name="message"
           autoComplete="off"
+          required
+          ref={ref => (this.inputRef = ref)}
         />
         <button type="submit" className="msg-form__btn-submit">
           <Ionicon icon="md-send" />
