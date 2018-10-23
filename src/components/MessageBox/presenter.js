@@ -7,7 +7,7 @@ import "./styles.css";
 
 export default class presenter extends Component {
   render() {
-    const { messages, isLoaded, handleLogout } = this.props;
+    const { messages, isLoaded, handleLogout, currentUser } = this.props;
 
     return (
       <section className={isLoaded ? "msg-box" : "msg-box msg-box--none"}>
@@ -23,7 +23,15 @@ export default class presenter extends Component {
             <span />
           </div>
           <div className="msg-box__messages">
-            <Message />
+            {Object.values(messages).map((message, index) => {
+              return (
+                <Message
+                  key={index}
+                  message={message}
+                  currentUser={currentUser}
+                />
+              );
+            })}
           </div>
           <div className="msg-box__bottom">
             <MessageForm />

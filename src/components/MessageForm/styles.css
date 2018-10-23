@@ -30,3 +30,7 @@
   height: auto;
   fill: #74c0fc;
 }
+
+.msg-form__btn-submit svg:hover {
+  fill: #4dabf7;
+}

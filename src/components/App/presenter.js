@@ -31,6 +31,7 @@ export default class presenter extends Component {
             messages={messages}
             isLoaded={isLoaded}
             handleLogout={handleLogout}
+            currentUser={currentUser}
           />
           {isLoggedIn ? (
             isLoaded ? (

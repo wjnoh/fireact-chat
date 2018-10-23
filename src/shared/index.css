@@ -41,7 +41,7 @@ body,
 }
 
 .btn-submit:hover {
-  background-color: #339af0;
-  border: 1px solid #339af0;
+  background-color: #4dabf7;
+  border: 1px solid #4dabf7;
   transition: all 0.1s linear;
 }
