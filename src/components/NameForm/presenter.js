@@ -8,7 +8,14 @@ export default class presenter extends Component {
     return (
       <section className="name-form">
         <form onSubmit={handleSubmit}>
-          <span className="logo-text">Fireact Chat</span>
+          <div className="logo-container">
+            <img
+              src={require("../../images/icon.png")}
+              alt=""
+              className="logo-icon"
+            />
+            <span className="logo-text">Fireact Chat</span>
+          </div>
           <input
             type="text"
             name="name"
