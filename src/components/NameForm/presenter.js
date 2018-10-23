@@ -18,6 +18,7 @@ export default class presenter extends Component {
             className="input name-form__input"
             autoComplete="off"
             required
+            maxlength="8"
           />
           <button type="submit" className="btn-submit">
             Enter
