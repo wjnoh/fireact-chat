@@ -7,7 +7,13 @@ import "./styles.css";
 
 export default class presenter extends Component {
   render() {
-    const { messages, isLoaded, handleLogout, currentUser } = this.props;
+    const {
+      messages,
+      isLoaded,
+      handleLogout,
+      currentUser,
+      handleMessageSubmit
+    } = this.props;
 
     return (
       <section className={isLoaded ? "msg-box" : "msg-box msg-box--none"}>
@@ -34,7 +40,7 @@ export default class presenter extends Component {
             })}
           </div>
           <div className="msg-box__bottom">
-            <MessageForm />
+            <MessageForm handleMessageSubmit={handleMessageSubmit} />
           </div>
         </div>
       </section>

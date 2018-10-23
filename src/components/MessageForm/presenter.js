@@ -5,12 +5,18 @@ import "./styles.css";
 
 export default class presenter extends Component {
   render() {
+    const { message, handleChange, handleSubmit } = this.props;
+
     return (
-      <form className="msg-form">
+      <form className="msg-form" onSubmit={handleSubmit}>
         <input
           type="text"
           className="input"
           placeholder="Type your message here :)"
+          value={message}
+          onChange={handleChange}
+          name="message"
+          autoComplete="off"
         />
         <button type="submit" className="msg-form__btn-submit">
           <Ionicon icon="md-send" />

@@ -19,8 +19,8 @@ export default class presenter extends Component {
       currentUser,
       messages,
       handleLogin,
-      getMessage,
-      handleLogout
+      handleLogout,
+      handleMessageSubmit
     } = this.props;
 
     return (
@@ -32,6 +32,7 @@ export default class presenter extends Component {
             isLoaded={isLoaded}
             handleLogout={handleLogout}
             currentUser={currentUser}
+            handleMessageSubmit={handleMessageSubmit}
           />
           {isLoggedIn ? (
             isLoaded ? (

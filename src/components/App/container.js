@@ -41,6 +41,16 @@ export default class container extends Component {
     });
   };
 
+  handleMessageSubmit = message => {
+    fire
+      .database()
+      .ref("/messages")
+      .push({
+        name: this.state.currentUser,
+        message: message
+      });
+  };
+
   render() {
     return (
       <App
@@ -49,6 +59,7 @@ export default class container extends Component {
         handleLogin={this.handleLogin}
         handleLogout={this.handleLogout}
         getMessage={this.getMessage}
+        handleMessageSubmit={this.handleMessageSubmit}
       />
     );
   }
