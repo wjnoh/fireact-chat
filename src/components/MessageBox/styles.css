@@ -54,7 +54,7 @@
   height: calc(100% - 110px);
   background-color: #f8f9fa;
   overflow-y: scroll;
-  padding: 10px;
+  padding: 0 10px;
 }
 
 .msg-box__bottom {
@@ -72,5 +72,16 @@
     height: 100vh;
     border-radius: 0;
     box-shadow: none;
+  }
+  .msg-box__top {
+    position: fixed;
+    top: 0;
+  }
+  .msg-box__messages {
+    height: calc(100% - 50px);
+    margin-top: 60px;
+  }
+  .msg-box__bottom {
+    position: fixed;
   }
 }
