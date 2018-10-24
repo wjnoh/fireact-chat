@@ -58,6 +58,12 @@ class container extends Component {
     });
   };
 
+  // 다른 방으로 넘어가면 이 방 데이터는 off한다.
+  offMessages = prevRoom => {
+    const messagesRef = fire.database().ref("/rooms/" + prevRoom + "/messages");
+    messagesRef.off("value");
+  };
+
   handleMessageSubmit = message => {
     fire
       .database()
@@ -70,6 +76,7 @@ class container extends Component {
 
   handleRoomChange = roomName => {
     this.props.history.push("/" + roomName);
+    this.offMessages(this.state.currentRoom);
     this.setState({
       currentRoom: roomName,
       isLoaded: false
@@ -101,6 +108,7 @@ class container extends Component {
         handleMessageSubmit={this.handleMessageSubmit}
         handleRoomChange={this.handleRoomChange}
         getRoomList={this.getRoomList}
+        offMessages={this.offMessages}
       />
     );
   }
