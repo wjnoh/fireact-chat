@@ -6,6 +6,11 @@
 .message .message__name {
   margin-bottom: 7px;
   font-size: 14px;
+  min-height: 1em;
+}
+
+.message__name .loading {
+  width: 30px;
 }
 
 .message .message__content {
@@ -23,10 +28,10 @@
   text-align: right;
 }
 
-.message--mine .message__name {
+/* .message--mine .message__name {
   text-align: right;
   display: none;
-}
+} */
 
 .message--mine .message__content {
   background-color: #a5d8ff;

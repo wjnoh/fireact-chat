@@ -36,7 +36,7 @@ class presenter extends Component {
             required
             ref={ref => (this.input = ref)}
             autoComplete="off"
-            maxlength="8"
+            maxLength="8"
           />
           <button type="submit" className="btn-submit">
             Enter

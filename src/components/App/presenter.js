@@ -17,7 +17,8 @@ export default class presenter extends Component {
     const {
       isLoaded,
       isLoggedIn,
-      currentUser,
+      isStartLogIn,
+      currentUserIp,
       messages,
       handleLogin,
       handleLogout,
@@ -50,29 +51,24 @@ export default class presenter extends Component {
           render={({ match }) => (
             <main className="main">
               <div className="main__container">
-                <MessageBox
-                  messages={messages}
-                  isLoaded={isLoaded}
-                  handleLogout={handleLogout}
-                  currentUser={currentUser}
-                  handleMessageSubmit={handleMessageSubmit}
-                  handleRoomChange={handleRoomChange}
-                  getRoomList={getRoomList}
-                  roomList={roomList}
-                  match={match}
-                />
-                {isLoggedIn ? (
-                  isLoaded ? (
-                    ""
-                  ) : (
-                    <img
-                      src={require("../../images/Loading.svg")}
-                      alt=""
-                      className="loading"
-                    />
-                  )
+                {isLoggedIn && isLoaded ? (
+                  <MessageBox
+                    messages={messages}
+                    isLoaded={isLoaded}
+                    handleLogout={handleLogout}
+                    currentUserIp={currentUserIp}
+                    handleMessageSubmit={handleMessageSubmit}
+                    handleRoomChange={handleRoomChange}
+                    getRoomList={getRoomList}
+                    roomList={roomList}
+                    match={match}
+                  />
                 ) : (
-                  ""
+                  <img
+                    src={require("../../images/Loading.svg")}
+                    alt=""
+                    className="loading"
+                  />
                 )}
               </div>
             </main>
@@ -81,6 +77,6 @@ export default class presenter extends Component {
       );
     };
 
-    return isLoggedIn ? PrivateRoutes() : PublicRoutes();
+    return isStartLogIn ? PrivateRoutes() : PublicRoutes();
   }
 }

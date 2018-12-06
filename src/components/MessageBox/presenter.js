@@ -7,7 +7,11 @@ import RoomList from "../RoomList";
 import "./styles.css";
 
 export default class presenter extends Component {
-  componentDidUpdate(prevProps, prevState) {
+  componentDidMount = () => {
+    this.msgRef.scrollTop = this.msgRef.scrollHeight;
+  };
+
+  componentDidUpdate() {
     this.msgRef.scrollTop = this.msgRef.scrollHeight;
   }
 
@@ -16,7 +20,7 @@ export default class presenter extends Component {
       messages,
       isLoaded,
       handleLogout,
-      currentUser,
+      currentUserIp,
       handleMessageSubmit,
       handleRoomChange,
       isListOn,
@@ -58,7 +62,7 @@ export default class presenter extends Component {
                 <Message
                   key={index}
                   message={message}
-                  currentUser={currentUser}
+                  currentUserIp={currentUserIp}
                 />
               );
             })}

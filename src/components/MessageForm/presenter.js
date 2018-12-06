@@ -19,7 +19,7 @@ export default class presenter extends Component {
           autoComplete="off"
           required
           ref={ref => (this.inputRef = ref)}
-          maxlength="280"
+          maxLength="280"
         />
         <button type="submit" className="msg-form__btn-submit">
           <Ionicon icon="md-send" />
