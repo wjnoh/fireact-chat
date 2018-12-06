@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import "./styles.css";
 
 export default class presenter extends Component {
+  componentDidMount = () => {
+    this.props.getNameFromIp();
+  };
+
   render() {
     const { name, handleChange, handleSubmit } = this.props;
 

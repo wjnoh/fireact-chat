@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import fire from "../../shared/Firebase";
 import { withRouter } from "react-router";
+import stringHash from "string-hash";
 
 import App from "./presenter";
 
@@ -40,7 +41,7 @@ class container extends Component {
             if (userIp === null) {
               userRef.push({
                 ip: res.ip,
-                name: name
+                name: name + " " + String(stringHash(res.ip)).substring(0, 3)
               });
               this.setState({
                 currentUserIp: res.ip,
@@ -57,7 +58,8 @@ class container extends Component {
                     .database()
                     .ref("users/" + snap.key)
                     .update({
-                      name: name
+                      name:
+                        name + " " + String(stringHash(res.ip)).substring(0, 3)
                     });
                 });
               this.setState({
