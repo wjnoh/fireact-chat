@@ -27,6 +27,7 @@ export default class presenter extends Component {
       handleListOn,
       handleListOff,
       roomList,
+      currentRoom,
       match
     } = this.props;
 
@@ -63,6 +64,7 @@ export default class presenter extends Component {
                   key={index}
                   message={message}
                   currentUserIp={currentUserIp}
+                  currentRoom={currentRoom}
                 />
               );
             })}

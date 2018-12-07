@@ -25,7 +25,8 @@ export default class presenter extends Component {
       handleMessageSubmit,
       handleRoomChange,
       getRoomList,
-      roomList
+      roomList,
+      currentRoom
     } = this.props;
 
     const PublicRoutes = () => {
@@ -61,6 +62,7 @@ export default class presenter extends Component {
                     handleRoomChange={handleRoomChange}
                     getRoomList={getRoomList}
                     roomList={roomList}
+                    currentRoom={currentRoom}
                     match={match}
                   />
                 ) : (

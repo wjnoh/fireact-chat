@@ -6,6 +6,13 @@ export default class presenter extends Component {
     this.props.getNameFromIp(this.props.message.ip);
   };
 
+  // 방 바뀌면 이름이 이상해지는 문제?
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.currentRoom !== prevProps.currentRoom) {
+      this.props.getNameFromIp(this.props.message.ip);
+    }
+  }
+
   render() {
     const { currentUserIp, message, messageOwner, isNameLoaded } = this.props;
     return (

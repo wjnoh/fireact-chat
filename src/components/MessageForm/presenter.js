@@ -4,6 +4,14 @@ import Ionicon from "react-ionicons";
 import "./styles.css";
 
 export default class presenter extends Component {
+  componentDidMount = () => {
+    this.inputRef.focus();
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    this.inputRef.focus();
+  }
+
   render() {
     const { message, handleChange, handleSubmit } = this.props;
 

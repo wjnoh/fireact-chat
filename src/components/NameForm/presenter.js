@@ -7,7 +7,7 @@ export default class presenter extends Component {
   };
 
   render() {
-    const { name, handleChange, handleSubmit } = this.props;
+    const { name, handleChange, handleSubmit, isNameLoaded } = this.props;
 
     return (
       <section className="name-form">
@@ -25,13 +25,17 @@ export default class presenter extends Component {
             name="name"
             onChange={handleChange}
             value={name}
-            placeholder="Whats your name?"
+            placeholder={isNameLoaded ? "Whats your name?" : "Loading"}
             className="input name-form__input"
             autoComplete="off"
             required
             maxLength="8"
           />
-          <button type="submit" className="btn-submit">
+          <button
+            type="submit"
+            className="btn-submit"
+            disabled={isNameLoaded ? false : true}
+          >
             Enter
           </button>
         </form>

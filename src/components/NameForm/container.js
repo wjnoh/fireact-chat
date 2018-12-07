@@ -4,7 +4,8 @@ import fire from "../../shared/Firebase";
 
 export default class container extends Component {
   state = {
-    name: ""
+    name: "",
+    isNameLoaded: false
   };
 
   handleChange = e => {
@@ -29,13 +30,16 @@ export default class container extends Component {
           .equalTo(res.ip)
           .once("value", snap => {
             if (snap.val() === null) {
-              return;
+              this.setState({
+                isNameLoaded: true
+              });
             } else {
               // 이미 타이핑 중이라면 자동완성 X
               if (this.state.name === "") {
                 const name = Object.values(snap.val())[0].name;
                 this.setState({
-                  name: String(name).substring(0, name.length - 4)
+                  name: String(name).substring(0, name.length - 4),
+                  isNameLoaded: true
                 });
               }
             }
