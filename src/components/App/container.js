@@ -102,7 +102,6 @@ class container extends Component {
         });
       } else {
         messagesRef.push({
-          name: "Admin",
           ip: "0",
           message: "Welcome!"
         });

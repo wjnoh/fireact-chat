@@ -25,6 +25,10 @@
   cursor: pointer;
 }
 
+.msg-form .msg-form__btn-submit:focus {
+  outline: none;
+}
+
 .msg-form__btn-submit svg {
   width: 25px;
   height: auto;

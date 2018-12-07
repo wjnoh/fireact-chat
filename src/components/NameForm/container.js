@@ -27,14 +27,17 @@ export default class container extends Component {
         userRef
           .orderByChild("ip")
           .equalTo(res.ip)
-          .on("value", snap => {
+          .once("value", snap => {
             if (snap.val() === null) {
               return;
             } else {
-              const name = Object.values(snap.val())[0].name;
-              this.setState({
-                name: String(name).substring(0, name.length - 4)
-              });
+              // 이미 타이핑 중이라면 자동완성 X
+              if (this.state.name === "") {
+                const name = Object.values(snap.val())[0].name;
+                this.setState({
+                  name: String(name).substring(0, name.length - 4)
+                });
+              }
             }
           });
       });
