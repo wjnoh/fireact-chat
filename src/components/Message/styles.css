@@ -7,10 +7,29 @@
   margin-bottom: 7px;
   font-size: 14px;
   min-height: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.message .message__name--mine {
+  justify-content: flex-end;
+}
+
+.message__name .message__online {
+  width: 6px;
+  height: 6px;
+  background-color: #adb5bd;
+  margin: 0 7px;
+  border-radius: 50%;
+}
+
+.message__name .message__online--green {
+  background-color: #40c057;
 }
 
 .message__name .loading {
   width: 30px;
+  height: 10px;
 }
 
 .message .message__content {

@@ -4,17 +4,24 @@ import "./styles.css";
 export default class presenter extends Component {
   componentDidMount = () => {
     this.props.getNameFromIp(this.props.message.ip);
+    this.props.handleOnline();
   };
 
-  // 방 바뀌면 이름이 이상해지는 문제?
   componentDidUpdate(prevProps, prevState) {
     if (this.props.currentRoom !== prevProps.currentRoom) {
       this.props.getNameFromIp(this.props.message.ip);
+      this.props.handleOnline();
     }
   }
 
   render() {
-    const { currentUserIp, message, messageOwner, isNameLoaded } = this.props;
+    const {
+      currentUserIp,
+      message,
+      messageOwner,
+      isNameLoaded,
+      isOnline
+    } = this.props;
     return (
       <>
         <div
@@ -22,9 +29,37 @@ export default class presenter extends Component {
             currentUserIp === message.ip ? "message message--mine" : "message"
           }
         >
-          <span className="message__name">
+          <div
+            className={
+              currentUserIp === message.ip
+                ? "message__name message__name--mine"
+                : "message__name"
+            }
+          >
             {isNameLoaded ? (
-              messageOwner
+              currentUserIp === message.ip ? (
+                <>
+                  <div
+                    className={
+                      isOnline
+                        ? "message__online message__online--green"
+                        : "message__online"
+                    }
+                  />
+                  {messageOwner}
+                </>
+              ) : (
+                <>
+                  {messageOwner}
+                  <div
+                    className={
+                      isOnline
+                        ? "message__online message__online--green"
+                        : "message__online"
+                    }
+                  />
+                </>
+              )
             ) : (
               <img
                 className="loading"
@@ -32,8 +67,8 @@ export default class presenter extends Component {
                 alt=""
               />
             )}
-          </span>
-          <span className="message__content">{message.message}</span>
+          </div>
+          <div className="message__content">{message.message}</div>
         </div>
       </>
     );

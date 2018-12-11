@@ -148,6 +148,33 @@ class container extends Component {
     });
   };
 
+  checkOnline = () => {
+    const connectedRef = fire.database().ref(".info/connected");
+    const userRef = fire.database().ref("/users");
+    connectedRef.on("value", function(snap) {
+      if (snap.val() === true) {
+        fetch("https://api.ipify.org/?format=json")
+          .then(res => res.json())
+          .then(res => {
+            userRef
+              .orderByChild("ip")
+              .equalTo(res.ip)
+              .once("child_added", snap => {
+                const ref = fire.database().ref("/users/" + snap.key);
+                // 현재 접속 중이니 우선 online을 true로
+                ref.update({
+                  online: true
+                });
+                // 만약 접속이 끊기면 online을 false로
+                ref.onDisconnect().update({
+                  online: false
+                });
+              });
+          });
+      }
+    });
+  };
+
   render() {
     return (
       <App
@@ -160,6 +187,7 @@ class container extends Component {
         handleRoomChange={this.handleRoomChange}
         getRoomList={this.getRoomList}
         offMessages={this.offMessages}
+        checkOnline={this.checkOnline}
       />
     );
   }

@@ -5,7 +5,8 @@ import fire from "../../shared/Firebase";
 export default class container extends Component {
   state = {
     messageOwner: "",
-    isNameLoaded: false
+    isNameLoaded: false,
+    isOnline: false
   };
 
   getNameFromIp = ip => {
@@ -30,9 +31,46 @@ export default class container extends Component {
     }
   };
 
+  handleOnline = () => {
+    const userRef = fire.database().ref("/users");
+    const connectedRef = fire.database().ref(".info/connected");
+
+    // 연결 상태를 구독하고 상태를 업데이트
+    connectedRef.on("value", snap => {
+      if (snap.val() === true) {
+        userRef
+          .orderByChild("ip")
+          .equalTo(this.props.message.ip)
+          .on("value", snap => {
+            // Admin일 경우에는 무조건 true
+            if (this.props.message.ip === "0") {
+              this.setState({
+                isOnline: true
+              });
+            } else {
+              if (Object.values(snap.val())[0].online) {
+                this.setState({
+                  isOnline: true
+                });
+              } else {
+                this.setState({
+                  isOnline: false
+                });
+              }
+            }
+          });
+      }
+    });
+  };
+
   render() {
     return (
-      <App {...this.state} {...this.props} getNameFromIp={this.getNameFromIp} />
+      <App
+        {...this.state}
+        {...this.props}
+        getNameFromIp={this.getNameFromIp}
+        handleOnline={this.handleOnline}
+      />
     );
   }
 }
