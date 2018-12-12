@@ -3,6 +3,7 @@ import Message from "../Message";
 import MessageForm from "../MessageForm";
 import Ionicon from "react-ionicons";
 import RoomList from "../RoomList";
+import MessageList from "../MessageList";
 
 import "./styles.css";
 
@@ -10,12 +11,10 @@ export default class presenter extends Component {
   componentDidMount = () => {
     this.props.checkOnline();
     this.props.checkRoom();
-    this.msgRef.scrollTop = this.msgRef.scrollHeight;
   };
 
   componentDidUpdate() {
     this.props.checkRoom();
-    this.msgRef.scrollTop = this.msgRef.scrollHeight;
   }
 
   render() {
@@ -60,18 +59,12 @@ export default class presenter extends Component {
             handleListOff={handleListOff}
           />
 
-          <div className="msg-box__messages" ref={ref => (this.msgRef = ref)}>
-            {Object.values(messages).map((message, index) => {
-              return (
-                <Message
-                  key={index}
-                  message={message}
-                  currentUserIp={currentUserIp}
-                  currentRoom={currentRoom}
-                />
-              );
-            })}
-          </div>
+          <MessageList
+            messages={messages}
+            currentUserIp={currentUserIp}
+            currentRoom={currentRoom}
+          />
+
           <div className="msg-box__bottom">
             <MessageForm handleMessageSubmit={handleMessageSubmit} />
           </div>

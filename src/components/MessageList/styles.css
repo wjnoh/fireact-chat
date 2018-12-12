@@ -1,0 +1,14 @@
+.msg-box__messages {
+  height: calc(100% - 110px);
+  background-color: #f8f9fa;
+  overflow-y: scroll;
+  padding: 0 15px;
+}
+
+@media (max-width: 640px) {
+  .msg-box__messages {
+    height: 100%;
+    padding-top: 60px;
+    padding-bottom: 50px;
+  }
+}
