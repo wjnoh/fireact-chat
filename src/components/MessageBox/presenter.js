@@ -8,6 +8,8 @@ import "./styles.css";
 
 export default class presenter extends Component {
   componentDidMount = () => {
+    const { checkOnline } = this.props;
+    checkOnline();
     this.msgRef.scrollTop = this.msgRef.scrollHeight;
   };
 

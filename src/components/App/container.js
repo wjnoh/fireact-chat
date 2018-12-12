@@ -86,6 +86,7 @@ class container extends Component {
       isStartLogIn: false,
       messages: ""
     });
+    this.offOnline();
   };
 
   getMessages = currentRoom => {
@@ -126,11 +127,12 @@ class container extends Component {
   };
 
   handleRoomChange = roomName => {
-    this.props.history.push("/" + roomName);
     this.offMessages(this.state.currentRoom);
+    this.props.history.push("/" + roomName);
     this.setState({
       currentRoom: roomName,
-      isLoaded: false
+      isLoaded: false,
+      messages: ""
     });
     this.getMessages(roomName);
   };
@@ -151,7 +153,7 @@ class container extends Component {
   checkOnline = () => {
     const connectedRef = fire.database().ref(".info/connected");
     const userRef = fire.database().ref("/users");
-    connectedRef.on("value", function(snap) {
+    connectedRef.on("value", snap => {
       if (snap.val() === true) {
         fetch("https://api.ipify.org/?format=json")
           .then(res => res.json())
@@ -173,6 +175,29 @@ class container extends Component {
           });
       }
     });
+  };
+
+  offOnline = () => {
+    const connectedRef = fire.database().ref(".info/connected");
+    const userRef = fire.database().ref("/users");
+
+    // 연결 상태 확인 off
+    connectedRef.off();
+
+    // db에서도 online false
+    fetch("https://api.ipify.org/?format=json")
+      .then(res => res.json())
+      .then(res => {
+        userRef
+          .orderByChild("ip")
+          .equalTo(res.ip)
+          .once("child_added", snap => {
+            const ref = fire.database().ref("/users/" + snap.key);
+            ref.update({
+              online: false
+            });
+          });
+      });
   };
 
   render() {

@@ -14,5 +14,5 @@ HTML, CSS, JS, React, react-router, Firebase(Realtime DB), Responsive Design, SP
 ## Issue
 
 첫 접속시 스크롤 가장 하단으로 이동하질 못한다. 메시지 받아오는 속도가 더 느려서 그런듯.<br>
-메시지의 이름을 가끔 잘못 받아오는 현상이 발생한다.<br>
-단순 접속상태가 아닌 해당 방에 접속했는지를 보여줄 필요가 있을 것 같다.
+단순 연결 상태가 아닌 해당 방에 접속했는지를 보여줄 필요가 있을 것 같다.<br>
+연결 해제시 Can't call setState (or forceUpdate) on an unmounted component. 문제 발생.

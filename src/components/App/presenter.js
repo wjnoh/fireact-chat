@@ -6,11 +6,6 @@ import { Route } from "react-router-dom";
 import "./styles.css";
 
 export default class presenter extends Component {
-  componentDidMount = () => {
-    const { checkOnline } = this.props;
-    checkOnline();
-  };
-
   componentDidUpdate = () => {
     const { isLoaded, isLoggedIn, getMessages, currentRoom } = this.props;
     if (isLoggedIn && !isLoaded) {
@@ -31,7 +26,8 @@ export default class presenter extends Component {
       handleRoomChange,
       getRoomList,
       roomList,
-      currentRoom
+      currentRoom,
+      checkOnline
     } = this.props;
 
     const PublicRoutes = () => {
@@ -68,6 +64,7 @@ export default class presenter extends Component {
                     getRoomList={getRoomList}
                     roomList={roomList}
                     currentRoom={currentRoom}
+                    checkOnline={checkOnline}
                     match={match}
                   />
                 ) : (
