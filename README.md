@@ -14,4 +14,5 @@ HTML, CSS, JS, React, react-router, Firebase(Realtime DB), Responsive Design, SP
 ## Issue
 
 첫 접속시 스크롤 가장 하단으로 이동하질 못한다. 메시지 받아오는 속도가 더 느려서 그런듯.<br>
-Can't call setState (or forceUpdate) on an unmounted component. 문제 발생.
+Can't call setState (or forceUpdate) on an unmounted component. 문제 발생.<br>
+방 이동시 이름을 제대로 받아오지 못하는 문제.
