@@ -51,6 +51,12 @@
   color: white;
 }
 
+.room--active {
+  background-color: #74c0fc;
+  border: 1px solid #74c0fc;
+  color: white;
+}
+
 @media (max-width: 640px) {
   .room-list {
     top: 60px;

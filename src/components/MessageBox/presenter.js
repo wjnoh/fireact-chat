@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Message from "../Message";
 import MessageForm from "../MessageForm";
 import Ionicon from "react-ionicons";
 import RoomList from "../RoomList";
@@ -57,6 +56,7 @@ export default class presenter extends Component {
             handleRoomChange={handleRoomChange}
             roomList={roomList}
             handleListOff={handleListOff}
+            currentRoom={currentRoom}
           />
 
           <MessageList

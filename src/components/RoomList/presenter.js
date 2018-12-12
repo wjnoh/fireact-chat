@@ -10,7 +10,8 @@ class presenter extends Component {
       roomList,
       handleRoomSelect,
       handleChange,
-      roomName
+      roomName,
+      currentRoom
     } = this.props;
 
     return (
@@ -47,7 +48,7 @@ class presenter extends Component {
             return (
               <span
                 key={index}
-                className="room"
+                className={currentRoom === room ? "room room--active" : "room"}
                 onClick={() => {
                   handleRoomSelect(room);
                 }}

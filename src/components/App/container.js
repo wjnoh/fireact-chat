@@ -16,7 +16,7 @@ class container extends Component {
       // 기본 경로로 들어오면 Fireact로 방 설정
       this.props.location.pathname === "/"
         ? "Fireact"
-        : this.props.location.pathname,
+        : this.props.location.pathname.split("/")[1],
     roomList: ""
   };
 
