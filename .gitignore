@@ -22,3 +22,6 @@ yarn-error.log*
 
 # firebase
 Firebase.js
+database.rules.json
+.runtimeconfig.json
+.firebase/

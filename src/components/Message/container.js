@@ -44,7 +44,10 @@ export default class container extends Component {
             isOnline: true
           });
         } else {
-          if (Object.values(snap.val())[0].online) {
+          if (
+            Object.values(snap.val())[0].online &&
+            Object.values(snap.val())[0].room === this.props.currentRoom
+          ) {
             this.setState({
               isOnline: true
             });

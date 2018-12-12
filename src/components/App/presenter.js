@@ -27,7 +27,8 @@ export default class presenter extends Component {
       getRoomList,
       roomList,
       currentRoom,
-      checkOnline
+      checkOnline,
+      checkRoom
     } = this.props;
 
     const PublicRoutes = () => {
@@ -65,6 +66,7 @@ export default class presenter extends Component {
                     roomList={roomList}
                     currentRoom={currentRoom}
                     checkOnline={checkOnline}
+                    checkRoom={checkRoom}
                     match={match}
                   />
                 ) : (

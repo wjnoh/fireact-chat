@@ -200,6 +200,24 @@ class container extends Component {
       });
   };
 
+  checkRoom = () => {
+    const userRef = fire.database().ref("/users");
+
+    fetch("https://api.ipify.org/?format=json")
+      .then(res => res.json())
+      .then(res => {
+        userRef
+          .orderByChild("ip")
+          .equalTo(res.ip)
+          .once("child_added", snap => {
+            const ref = fire.database().ref("/users/" + snap.key);
+            ref.update({
+              room: this.state.currentRoom
+            });
+          });
+      });
+  };
+
   render() {
     return (
       <App
@@ -213,6 +231,7 @@ class container extends Component {
         getRoomList={this.getRoomList}
         offMessages={this.offMessages}
         checkOnline={this.checkOnline}
+        checkRoom={this.checkRoom}
       />
     );
   }
