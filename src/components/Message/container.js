@@ -60,6 +60,11 @@ export default class container extends Component {
       });
   };
 
+  offHandleOnline = () => {
+    const userRef = fire.database().ref("/users");
+    userRef.off();
+  };
+
   render() {
     return (
       <App
@@ -67,6 +72,7 @@ export default class container extends Component {
         {...this.props}
         getNameFromIp={this.getNameFromIp}
         handleOnline={this.handleOnline}
+        offHandleOnline={this.offHandleOnline}
       />
     );
   }

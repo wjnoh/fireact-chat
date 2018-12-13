@@ -14,6 +14,11 @@ export default class presenter extends Component {
     }
   }
 
+  componentWillUnmount() {
+    // 온라인인지 더 이상 확인 X
+    this.props.offHandleOnline();
+  }
+
   render() {
     const {
       currentUserIp,
