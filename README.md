@@ -13,5 +13,4 @@ HTML, CSS, JS, React, react-router, Firebase(Realtime DB), Responsive Design, SP
 
 ## Issue
 
-첫 접속시 스크롤 가장 하단으로 이동하질 못한다. 메시지 받아오는 속도가 더 느려서 그런듯.<br>
-방 이동시 사용자 이름을 정확히 받아오지 못하는 문제.
+첫 접속시 스크롤 가장 하단으로 이동하질 못한다. 메시지 받아오는 속도가 더 느려서 그런듯.

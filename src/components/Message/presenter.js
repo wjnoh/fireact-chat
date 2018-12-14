@@ -3,21 +3,23 @@ import "./styles.css";
 
 export default class presenter extends Component {
   componentDidMount = () => {
-    this.props.getNameFromIp(this.props.message.ip);
-    this.props.handleOnline();
+    this.props.getNameOnline();
   };
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.currentRoom !== prevProps.currentRoom) {
-      this.props.getNameFromIp(this.props.message.ip);
-      this.props.handleOnline();
+      this.props.getNameOnline();
     }
   }
 
-  componentWillUnmount() {
-    // 온라인인지 더 이상 확인 X
-    this.props.offHandleOnline();
-  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    // cdu 들어가기 전에 한 번 초기화 시켜준다.
+    if (this.props.currentRoom !== nextProps.currentRoom) {
+      this.props.offNameOnline();
+      return true;
+    }
+    return true;
+  };
 
   render() {
     const {
