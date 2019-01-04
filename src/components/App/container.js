@@ -20,6 +20,13 @@ class container extends Component {
     roomList: ""
   };
 
+  // 접속한 유저의 ip 불러오기
+  getIp = () => {
+    return fetch("https://api.ipify.org/?format=json")
+      .then(res => res.json())
+      .then(json => json.ip);
+  };
+
   handleLogin = name => {
     this.setState({
       isStartLogIn: true
@@ -27,52 +34,49 @@ class container extends Component {
 
     const userRef = fire.database().ref("/users");
 
-    // api로 현재 유저의 ip를 가져온다.
-    fetch("https://api.ipify.org/?format=json")
-      .then(res => res.json())
-      .then(res =>
-        // 가져온 ip가 db에 있는지 확인한 후,
-        userRef
-          .orderByChild("ip")
-          .equalTo(res.ip)
-          .once("value", snap => {
-            const userIp = snap.val();
-            // 없으면 새로 생성한다.
-            if (userIp === null) {
-              userRef.push({
-                ip: res.ip,
-                name: name + " " + String(stringHash(res.ip)).substring(0, 3)
+    // 현재 유저의 ip를 가져온다.
+    this.getIp().then(ip =>
+      // 가져온 ip가 db에 있는지 확인한 후,
+      userRef
+        .orderByChild("ip")
+        .equalTo(ip)
+        .once("value", snap => {
+          const userIp = snap.val();
+          // 없으면 새로 생성한다.
+          if (userIp === null) {
+            userRef.push({
+              ip: ip,
+              name: name + " " + String(stringHash(ip)).substring(0, 3)
+            });
+            this.setState({
+              currentUserIp: ip,
+              isLoggedIn: true
+            });
+          }
+          // 있으면 해당 ip의 name만 수정한다.
+          else {
+            userRef
+              .orderByChild("ip")
+              .equalTo(ip)
+              .once("child_added", snap => {
+                fire
+                  .database()
+                  .ref("users/" + snap.key)
+                  .update({
+                    name: name + " " + String(stringHash(ip)).substring(0, 3)
+                  });
               });
-              this.setState({
-                currentUserIp: res.ip,
-                isLoggedIn: true
-              });
-            }
-            // 있으면 해당 ip의 name만 수정한다.
-            else {
-              userRef
-                .orderByChild("ip")
-                .equalTo(res.ip)
-                .once("child_added", snap => {
-                  fire
-                    .database()
-                    .ref("users/" + snap.key)
-                    .update({
-                      name:
-                        name + " " + String(stringHash(res.ip)).substring(0, 3)
-                    });
-                });
-              this.setState({
-                currentUserIp: res.ip,
-                isLoggedIn: true
-              });
-            }
-          })
-          .catch(error => {
-            alert(error);
-            this.handleLogout();
-          })
-      );
+            this.setState({
+              currentUserIp: ip,
+              isLoggedIn: true
+            });
+          }
+        })
+        .catch(error => {
+          alert(error);
+          this.handleLogout();
+        })
+    );
 
     // 기본 경로로 들어왔을 때 기본 방(Fireact)으로 라우터 변경
     this.props.history.push(this.state.currentRoom);
@@ -102,6 +106,7 @@ class container extends Component {
           isLoaded: true
         });
       } else {
+        // 아무 메시지도 없으면 admin의 Welcome
         messagesRef.push({
           ip: "0",
           message: "Welcome!"
@@ -155,24 +160,22 @@ class container extends Component {
     const userRef = fire.database().ref("/users");
     connectedRef.on("value", snap => {
       if (snap.val() === true) {
-        fetch("https://api.ipify.org/?format=json")
-          .then(res => res.json())
-          .then(res => {
-            userRef
-              .orderByChild("ip")
-              .equalTo(res.ip)
-              .once("child_added", snap => {
-                const ref = fire.database().ref("/users/" + snap.key);
-                // 현재 접속 중이니 우선 online을 true로
-                ref.update({
-                  online: true
-                });
-                // 만약 접속이 끊기면 online을 false로
-                ref.onDisconnect().update({
-                  online: false
-                });
+        this.getIp().then(ip => {
+          userRef
+            .orderByChild("ip")
+            .equalTo(ip)
+            .once("child_added", snap => {
+              const ref = fire.database().ref("/users/" + snap.key);
+              // 현재 접속 중이니 우선 online을 true로
+              ref.update({
+                online: true
               });
-          });
+              // 만약 접속이 끊기면 online을 false로
+              ref.onDisconnect().update({
+                online: false
+              });
+            });
+        });
       }
     });
   };
@@ -185,37 +188,33 @@ class container extends Component {
     connectedRef.off();
 
     // db에서도 online false
-    fetch("https://api.ipify.org/?format=json")
-      .then(res => res.json())
-      .then(res => {
-        userRef
-          .orderByChild("ip")
-          .equalTo(res.ip)
-          .once("child_added", snap => {
-            const ref = fire.database().ref("/users/" + snap.key);
-            ref.update({
-              online: false
-            });
+    this.getIp().then(ip => {
+      userRef
+        .orderByChild("ip")
+        .equalTo(ip)
+        .once("child_added", snap => {
+          const ref = fire.database().ref("/users/" + snap.key);
+          ref.update({
+            online: false
           });
-      });
+        });
+    });
   };
 
   checkRoom = () => {
     const userRef = fire.database().ref("/users");
 
-    fetch("https://api.ipify.org/?format=json")
-      .then(res => res.json())
-      .then(res => {
-        userRef
-          .orderByChild("ip")
-          .equalTo(res.ip)
-          .once("child_added", snap => {
-            const ref = fire.database().ref("/users/" + snap.key);
-            ref.update({
-              room: this.state.currentRoom
-            });
+    this.getIp().then(ip => {
+      userRef
+        .orderByChild("ip")
+        .equalTo(ip)
+        .once("child_added", snap => {
+          const ref = fire.database().ref("/users/" + snap.key);
+          ref.update({
+            room: this.state.currentRoom
           });
-      });
+        });
+    });
   };
 
   render() {
