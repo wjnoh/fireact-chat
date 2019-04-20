@@ -1,10 +1,19 @@
 import React, { Component } from "react";
-import App from "./presenter";
+import MessageBox from "./presenter";
 
-export default class container extends Component {
+class Container extends Component {
   state = {
     isListOn: false
   };
+
+  componentDidMount = () => {
+    this.props.checkOnline();
+    this.props.checkRoom();
+  };
+
+  componentDidUpdate() {
+    this.props.checkRoom();
+  }
 
   handleListOn = () => {
     const { getRoomList } = this.props;
@@ -22,7 +31,7 @@ export default class container extends Component {
 
   render() {
     return (
-      <App
+      <MessageBox
         {...this.state}
         {...this.props}
         handleListOn={this.handleListOn}
@@ -31,3 +40,5 @@ export default class container extends Component {
     );
   }
 }
+
+export default Container;

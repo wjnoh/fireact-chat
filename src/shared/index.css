@@ -13,35 +13,3 @@ body,
 #root {
   height: 100%;
 }
-
-.input {
-  display: block;
-  border-radius: 3px;
-  border: 1px solid #adb5bd;
-  height: 35px;
-  font-size: 15px;
-  padding: 0 10px;
-}
-
-.input:focus {
-  outline: none;
-}
-
-.btn-submit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #74c0fc;
-  border: 1px solid #74c0fc;
-  border-radius: 3px;
-  color: #fff;
-  height: 35px;
-  cursor: pointer;
-  font-size: 15px;
-}
-
-.btn-submit:hover {
-  background-color: #4dabf7;
-  border: 1px solid #4dabf7;
-  transition: all 0.1s linear;
-}

@@ -1,19 +1,24 @@
-.msg-form {
+import styled from "styled-components";
+
+export const MessageForm = styled.form`
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 15px;
-}
+`;
 
-.msg-form .input {
+export const MessageFormInput = styled.input`
   width: 100%;
   border: none;
   background-color: white;
   padding-right: 35px;
-}
+  &:focus {
+    outline: none;
+  }
+`;
 
-.msg-form .msg-form__btn-submit {
+export const MessageFormButton = styled.button`
   border: none;
   background-color: transparent;
   padding: 0;
@@ -23,18 +28,15 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-}
-
-.msg-form .msg-form__btn-submit:focus {
-  outline: none;
-}
-
-.msg-form__btn-submit svg {
-  width: 25px;
-  height: auto;
-  fill: #74c0fc;
-}
-
-.msg-form__btn-submit svg:hover {
-  fill: #4dabf7;
-}
+  &:focus {
+    outline: none;
+  }
+  svg {
+    width: 25px;
+    height: auto;
+    fill: #74c0fc;
+    &:hover {
+      fill: #4dabf7;
+    }
+  }
+`;

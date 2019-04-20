@@ -1,11 +1,10 @@
 import React, { Component } from "react";
+import App from "./presenter";
 import fire from "../../shared/Firebase";
 import { withRouter } from "react-router";
 import stringHash from "string-hash";
 
-import App from "./presenter";
-
-class container extends Component {
+class Container extends Component {
   state = {
     isLoaded: false,
     isLoggedIn: false,
@@ -18,6 +17,13 @@ class container extends Component {
         ? "Fireact"
         : this.props.location.pathname.split("/")[1],
     roomList: ""
+  };
+
+  componentDidUpdate = () => {
+    const { isLoaded, isLoggedIn, currentRoom } = this.state;
+    if (isLoggedIn && !isLoaded) {
+      this.getMessages(currentRoom);
+    }
   };
 
   // 접속한 유저의 ip 불러오기
@@ -236,4 +242,4 @@ class container extends Component {
   }
 }
 
-export default withRouter(container);
+export default withRouter(Container);

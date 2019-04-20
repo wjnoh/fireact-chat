@@ -1,9 +1,8 @@
 import React, { Component } from "react";
+import * as S from "./styles";
 import Ionicon from "react-ionicons";
 
-import "./styles.css";
-
-export default class presenter extends Component {
+class MessageForm extends Component {
   componentDidMount = () => {
     this.inputRef.focus();
   };
@@ -16,23 +15,24 @@ export default class presenter extends Component {
     const { message, handleChange, handleSubmit } = this.props;
 
     return (
-      <form className="msg-form" onSubmit={handleSubmit}>
-        <input
+      <S.MessageForm className="msg-form" onSubmit={handleSubmit}>
+        <S.MessageFormInput
           type="text"
-          className="input"
           placeholder="Type your message here :)"
           value={message}
           onChange={handleChange}
           name="message"
           autoComplete="off"
-          required
           ref={ref => (this.inputRef = ref)}
           maxLength="280"
+          required
         />
-        <button type="submit" className="msg-form__btn-submit">
+        <S.MessageFormButton type="submit" className="msg-form__btn-submit">
           <Ionicon icon="md-send" />
-        </button>
-      </form>
+        </S.MessageFormButton>
+      </S.MessageForm>
     );
   }
 }
+
+export default MessageForm;

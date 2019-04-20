@@ -1,45 +1,37 @@
 import React, { Component } from "react";
-import "./styles.css";
+import * as S from "./styles";
 
-export default class presenter extends Component {
-  componentDidMount = () => {
-    this.props.getNameFromIp();
-  };
-
+class NameForm extends Component {
   render() {
     const { name, handleChange, handleSubmit, isNameLoaded } = this.props;
 
     return (
-      <section className="name-form">
+      <S.NameForm>
         <form onSubmit={handleSubmit}>
-          <div className="logo-container">
-            <img
-              src={require("../../images/icon.png")}
-              alt=""
-              className="logo-icon"
-            />
-            <span className="logo-text">Fireact Chat</span>
-          </div>
-          <input
+          <S.LogoContainer>
+            <img src={require("../../images/icon.png")} alt="Logo" />
+            <h1>Fireact Chat</h1>
+          </S.LogoContainer>
+          <S.NameFormInput
             type="text"
             name="name"
             onChange={handleChange}
             value={name}
             placeholder={isNameLoaded ? "Whats your name?" : "Loading"}
-            className="input name-form__input"
             autoComplete="off"
             required
             maxLength="8"
           />
-          <button
+          <S.NameFormButton
             type="submit"
-            className="btn-submit"
             disabled={isNameLoaded ? false : true}
           >
             Enter
-          </button>
+          </S.NameFormButton>
         </form>
-      </section>
+      </S.NameForm>
     );
   }
 }
+
+export default NameForm;

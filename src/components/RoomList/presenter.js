@@ -1,9 +1,8 @@
 import React, { Component } from "react";
+import * as S from "./styles";
 import { withRouter } from "react-router";
 
-import "./styles.css";
-
-class presenter extends Component {
+class RoomList extends Component {
   render() {
     const {
       isListOn,
@@ -15,21 +14,18 @@ class presenter extends Component {
     } = this.props;
 
     return (
-      <div className={isListOn ? "room-list" : "room-list room-list--none"}>
-        <form
-          className="room-list__form"
+      <S.RoomList none={isListOn ? false : true}>
+        <S.RoomListForm
           onSubmit={e => {
             e.preventDefault();
             handleRoomSelect(roomName);
-
             // input에 붙은 focus 제거
             let focus = document.querySelector(":focus");
             if (focus) focus.blur();
           }}
         >
-          <input
+          <S.RoomListInput
             type="text"
-            className="input"
             placeholder="Enter room name!"
             value={roomName}
             name="roomName"
@@ -39,28 +35,26 @@ class presenter extends Component {
             autoComplete="off"
             maxLength="8"
           />
-          <button type="submit" className="btn-submit">
-            Enter
-          </button>
-        </form>
-        <div className="rooms">
+          <S.RoomListButton type="submit">Enter</S.RoomListButton>
+        </S.RoomListForm>
+        <S.Rooms>
           {Object.values(roomList).map((room, index) => {
             return (
-              <span
+              <S.Room
                 key={index}
-                className={currentRoom === room ? "room room--active" : "room"}
                 onClick={() => {
                   handleRoomSelect(room);
                 }}
+                active={currentRoom === room ? true : false}
               >
                 {room}
-              </span>
+              </S.Room>
             );
           })}
-        </div>
-      </div>
+        </S.Rooms>
+      </S.RoomList>
     );
   }
 }
 
-export default withRouter(presenter);
+export default withRouter(RoomList);

@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import App from "./presenter";
+import NameForm from "./presenter";
 import fire from "../../shared/Firebase";
 
-export default class container extends Component {
+class Container extends Component {
   state = {
     name: "",
     isNameLoaded: false
+  };
+
+  componentDidMount = () => {
+    this.getNameFromIp();
   };
 
   handleChange = e => {
@@ -49,13 +53,14 @@ export default class container extends Component {
 
   render() {
     return (
-      <App
+      <NameForm
         {...this.state}
         {...this.props}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
-        getNameFromIp={this.getNameFromIp}
       />
     );
   }
 }
+
+export default Container;

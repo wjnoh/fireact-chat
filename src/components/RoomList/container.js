@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import App from "./presenter";
+import RoomList from "./presenter";
 
-export default class container extends Component {
+class Container extends Component {
   state = {
     roomName: ""
   };
@@ -23,7 +23,7 @@ export default class container extends Component {
 
   render() {
     return (
-      <App
+      <RoomList
         {...this.state}
         {...this.props}
         handleRoomSelect={this.handleRoomSelect}
@@ -32,3 +32,5 @@ export default class container extends Component {
     );
   }
 }
+
+export default Container;

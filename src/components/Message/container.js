@@ -1,12 +1,31 @@
 import React, { Component } from "react";
-import App from "./presenter";
+import Message from "./presenter";
 import fire from "../../shared/Firebase";
 
-export default class container extends Component {
+class Container extends Component {
   state = {
     messageOwner: "",
     isNameLoaded: false,
     isOnline: false
+  };
+
+  componentDidMount = () => {
+    this.getNameOnline();
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.currentRoom !== prevProps.currentRoom) {
+      this.getNameOnline();
+    }
+  }
+
+  shouldComponentUpdate = (nextProps, nextState) => {
+    // cdu 들어가기 전에 한 번 초기화 시켜준다.
+    if (this.props.currentRoom !== nextProps.currentRoom) {
+      this.offNameOnline();
+      return true;
+    }
+    return true;
   };
 
   getNameOnline = () => {
@@ -48,7 +67,6 @@ export default class container extends Component {
       isNameLoaded: false,
       isOnline: false
     });
-
     const userRef = fire.database().ref("/users");
     userRef
       .orderByChild("ip")
@@ -57,13 +75,8 @@ export default class container extends Component {
   };
 
   render() {
-    return (
-      <App
-        {...this.state}
-        {...this.props}
-        getNameOnline={this.getNameOnline}
-        offNameOnline={this.offNameOnline}
-      />
-    );
+    return <Message {...this.state} {...this.props} />;
   }
 }
+
+export default Container;
